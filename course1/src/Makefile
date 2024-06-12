@@ -20,22 +20,28 @@
 #
 #-----------------------------------------------------------------------------
 
-SOURCES = main.c  memory.c
+SOURCES = main.c  memory.c data.c course1.c stats.c
 INCLUDES = -I../include/CMSIS -I ../include/common -I ../include/msp432
 PLATFORM = HOST
 TARGET = C1M2
+PRINT = DONT_PRINT
+COURSE_FLAG = COURSE1 
 
-# Enable comprehensive set of warnings.
 # All warnnings as errors.
 # Additional debug information
 # Optimization level 0 
 # standart c99
 FLAGS = -Wall -Werror -g -O0 -std=c99
 
+# if print array is used
+ifeq ($(PRINT),PRINT)
+CCP = -D__PRINT_ARRAY__ -D$(COURSE_FLAG)
+endif
+
 ifeq ($(PLATFORM), HOST)
 CC = gcc
 CFLAGS = $(FLAGS)
-CPPFLAGS = -DHOST $(INCLUDES)
+CPPFLAGS = -DHOST $(CCP) $(INCLUDES)
 LDFLAGS = -Wl,-Map=$(TARGET).map
 SIZE = size
 
@@ -47,8 +53,7 @@ CPU = cortex-m4
 ARCH = armv7e-m
 SPECS = nosys.specs
 OTHER_ARCH_FLAGS = -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16
-
-SOURCES = main.c memory.c interrupts_msp432p401r_gcc.c startup_msp432p401r_gcc.c system_msp432p401r.c
+SOURCES = main.c memory.c interrupts_msp432p401r_gcc.c startup_msp432p401r_gcc.c system_msp432p401r.c data.c course1.c stats.c
 
 # Compiler Flags and Defines
 CC = arm-none-eabi-gcc

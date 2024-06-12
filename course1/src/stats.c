@@ -15,57 +15,34 @@
  *
  */
 
-#include <stdio.h>
 #include "stats.h"
 #include "stdlib.h"
-
-/* Size of the Data Set */
+#include "platform.h" 
 
 #define SIZE (40)
-
-int main() {
-
- unsigned char test[SIZE] = { 34, 201, 190, 154,   8, 194,   2,   6,
-                              114, 88,   45,  76, 123,  87,  25,  23,
-                              200, 122, 150, 90,   92,  87, 177, 244,
-                              201,   6,  12,  60,   8,   2,   5,  67,
-                                7,  87, 250, 230,  99,   3, 100,  90};
-
- /* Other Variable Declarations Go Here */
-
- unsigned char buff[SIZE] = {0};
-
- /* Statistics and Printing Functions Go Here */
- 
-  sort_array(test,buff);
-  print_array(buff);
-  print_statistics(buff);
- 
- return 0;
-
-}
+#define MAX_LENGTH (10)
 
 /* Add other Implementation File Code Here */
 void print_statistics(unsigned char *pData){
 
  /* print the mean */
- printf("\n mean = %d",round_data(find_mean(pData)));
+ PRINTF("\n mean = %d",round_data(find_mean(pData)));
  /* print the median */
- printf("\n median = %d",round_data(find_median(pData)));
+ PRINTF("\n median = %d",round_data(find_median(pData)));
  /* print the maximum */ 
- printf("\n maximum = %d",find_maximum(pData));
+ PRINTF("\n maximum = %d",find_maximum(pData));
  /* print the minimum */ 
- printf("\n minimum = %d\n",find_minimum(pData));
+ PRINTF("\n minimum = %d\n",find_minimum(pData));
 
 }
 
 /* print array */ 
 void print_array(unsigned char* pData){
-  printf("\n array = ");
+  PRINTF("\n array = ");
   unsigned char* pData_end = pData+SIZE;
   while(pData < pData_end)
   {
-   printf("%d ",*pData);
+   PRINTF("%d ",*pData);
    pData++;
   }
 
@@ -100,7 +77,6 @@ float find_mean(unsigned char* pData){
 unsigned char find_maximum(unsigned char *pData ){
 
  unsigned char* pData_start = pData;
- unsigned int size = (sizeof(pData))/(sizeof(*pData));
  int  j =0;         
  unsigned char maximum =0; 
 
@@ -127,7 +103,6 @@ unsigned char find_maximum(unsigned char *pData ){
 unsigned char find_minimum(unsigned char *pData ){
 
  unsigned char* pData_start = pData;
- unsigned int size = (sizeof(pData))/(sizeof(*pData));
  int  j =0; 
  unsigned char minimum =0;
 
